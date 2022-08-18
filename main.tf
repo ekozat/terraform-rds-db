@@ -6,4 +6,6 @@ resource "aws_rds_cluster" "default" {
   db_cluster_instance_class = "db.t3.medium"
   master_username           = "sq_dance_adm"
   master_password           = "***REMOVED***"
+  vpc_security_group_ids    = "RDS_DevWork"
+  //password authentication is enabled
 }
