@@ -1,4 +1,4 @@
-resource "aws_rds_cluster" "default" {
+resource "aws_rds_cluster" "master-dev-database-cluster" {
   cluster_identifier        = "master-dev-database-cluster"
   engine                    = "aurora-mysql"
   engine_version            = "5.6.mysql_aurora.1.20.1"
