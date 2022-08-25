@@ -1,9 +1,10 @@
 resource "aws_rds_cluster_instance" "cluster_instances" {
-  count              = 2
-  cluster_identifier = aws_rds_cluster.master-dev-database-cluster.id
-  instance_class     = "db.t3.medium"
-  engine             = aws_rds_cluster.master-dev-database-cluster.engine
-  engine_version     = aws_rds_cluster.master-dev-database-cluster.engine_version
+  count               = 2
+  cluster_identifier  = aws_rds_cluster.master-dev-database-cluster.id
+  instance_class      = "db.t3.medium"
+  engine              = aws_rds_cluster.master-dev-database-cluster.engine
+  engine_version      = aws_rds_cluster.master-dev-database-cluster.engine_version
+  publicly_accessible = "true"
 }
 
 resource "aws_rds_cluster" "master-dev-database-cluster" {
