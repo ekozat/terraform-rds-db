@@ -15,6 +15,18 @@ resource "aws_rds_cluster" "master-dev-db-cluster" {
   database_name          = "dev-db"
   master_username        = "sq_dance_adm"
   master_password        = "***REMOVED***"
-  vpc_security_group_ids = ["RDS_DevWork"]
-  //password authentication is enabled
+  vpc_security_group_ids = [aws_security_group.RDS_DevWork.vpc_id]
+  //password authentication is enabled as default
+}
+
+resource "aws_security_group" "RDS_DevWork" {
+  name   = "RDS_DevWork"
+  vpc_id = aws_vpc.main.id
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 }
