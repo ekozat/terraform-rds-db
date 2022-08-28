@@ -19,26 +19,27 @@ resource "aws_rds_cluster" "master-dev-db-cluster" {
   //password authentication is enabled as default
 }
 
-# resource "aws_db_subnet_group" "default" {
-#   name       = "main"
-#   subnet_ids = [aws_subnet.frontend.id, aws_subnet.backend.id]
+resource "aws_db_subnet_group" "RDS_dev_subnet" {
+  name = "RDS_dev_subnet"
+  subnet_ids = ["10.0.2.32/27", "10.0.3.64/27", "10.0.0.128/26", "10.0.2.64/27", "10.0.0.224/27",
+  "10.0.0.16/28", "10.0.0.192/27", "10.0.1.0/27", "10.0.0.64/26", "10.0.1.32/27"]
 
-#   tags = {
-#     Name = "My DB subnet group"
-#   }
-# }
-
-resource "aws_security_group" "RDS_DevWork" {
-  name   = "RDS_DevWork"
-  vpc_id = aws_vpc.RDS_DevWork.id
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+  tags = {
+    Name = "My DB subnet group"
   }
 }
-resource "aws_vpc" "RDS_DevWork" {
-  cidr_block = "10.0.2.32/27"
-}
+
+# resource "aws_security_group" "RDS_DevWork" {
+#   name   = "RDS_DevWork"
+#   vpc_id = aws_vpc.RDS_DevWork.id
+
+#   egress {
+#     from_port   = 0
+#     to_port     = 0
+#     protocol    = "-1"
+#     cidr_blocks = ["0.0.0.0/0"]
+#   }
+# }
+# resource "aws_vpc" "RDS_DevWork" {
+#   cidr_block = "10.0.2.32/27"
+# }
