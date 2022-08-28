@@ -14,10 +14,19 @@ resource "aws_rds_cluster" "master-dev-db-cluster" {
   engine_version         = "5.6.mysql_aurora.1.20.1"
   database_name          = "dev-db"
   master_username        = "sq_dance_adm"
-  master_password        = "***REMOVED***"
+  master_password        = var.db_password
   vpc_security_group_ids = [aws_security_group.RDS_DevWork.id]
   //password authentication is enabled as default
 }
+
+# resource "aws_db_subnet_group" "default" {
+#   name       = "main"
+#   subnet_ids = [aws_subnet.frontend.id, aws_subnet.backend.id]
+
+#   tags = {
+#     Name = "My DB subnet group"
+#   }
+# }
 
 resource "aws_security_group" "RDS_DevWork" {
   name   = "RDS_DevWork"
