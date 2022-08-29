@@ -1,7 +1,7 @@
 resource "aws_rds_cluster_instance" "cluster_instances" {
   count                = 2
   cluster_identifier   = aws_rds_cluster.master-dev-db-cluster.id
-  db_subnet_group_name = aws_db_subnet_group.RDS_dev_subnet
+  db_subnet_group_name = aws_db_subnet_group.RDS_dev_subnet.name
   instance_class       = "db.t3.medium"
   engine               = aws_rds_cluster.master-dev-db-cluster.engine
   engine_version       = aws_rds_cluster.master-dev-db-cluster.engine_version
@@ -21,26 +21,18 @@ resource "aws_rds_cluster" "master-dev-db-cluster" {
 }
 
 resource "aws_db_subnet_group" "RDS_dev_subnet" {
-  name = "RDS_dev_subnet"
-  subnet_ids = ["10.0.2.32/27", "10.0.3.64/27", "10.0.0.128/26", "10.0.2.64/27", "10.0.0.224/27",
-  "10.0.0.16/28", "10.0.0.192/27", "10.0.1.0/27", "10.0.0.64/26", "10.0.1.32/27"]
-
-  tags = {
-    Name = "My DB subnet group"
-  }
+  name       = "rds_dev_subnet"
+  subnet_ids = ["subnet-0faaa007ed499eda5", "subnet-0444b1b614a8528da"]
 }
 
-# resource "aws_security_group" "RDS_DevWork" {
-#   name   = "RDS_DevWork"
-#   vpc_id = aws_vpc.RDS_DevWork.id
+resource "aws_security_group" "RDS_DevWork" {
+  name   = "RDS_DevWork"
+  vpc_id = "vpc-093da92b6cda0a2d6"
 
-#   egress {
-#     from_port   = 0
-#     to_port     = 0
-#     protocol    = "-1"
-#     cidr_blocks = ["0.0.0.0/0"]
-#   }
-# }
-# resource "aws_vpc" "RDS_DevWork" {
-#   cidr_block = "10.0.2.32/27"
-# }
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
