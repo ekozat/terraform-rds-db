@@ -9,11 +9,12 @@ resource "aws_rds_cluster_instance" "cluster_instances" {
 }
 
 resource "aws_rds_cluster" "master-dev-db-cluster" {
-  cluster_identifier = "master-dev-db-cluster"
-  engine             = "aurora"
+  cluster_identifier   = "master-dev-db-cluster"
+  db_subnet_group_name = aws_db_subnet_group.RDS_dev_subnet.name
+  engine               = "aurora"
   //engine_mode            = "provisioned"
   engine_version         = "5.6.mysql_aurora.1.20.1"
-  database_name          = "dev-db"
+  database_name          = "devDb"
   master_username        = "sq_dance_adm"
   master_password        = var.db_password
   vpc_security_group_ids = [aws_security_group.RDS_DevWork.id]
